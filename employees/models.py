@@ -19,7 +19,9 @@ class Employee(models.Model):
     # country = models.CharField(max_length=30)   # if international addresses were to be used
     zipcode = models.CharField(max_length=5)    # Only supports standard 5-digit US ZIP codes; does not support ZIP+4 or international codes
     date_of_joining = models.DateField("Date of joining")
-    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
+    department = models.ForeignKey(
+        Department, on_delete=models.SET_NULL, null=True, related_name="employees"
+    )
     
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
