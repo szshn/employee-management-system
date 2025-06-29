@@ -1,0 +1,6 @@
+# Ignore pycache inside apps
+**/__pycache__/
+
+# Ignore .env files
+.env
+
