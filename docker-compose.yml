@@ -2,8 +2,7 @@ services:
   web:
     build: .
     environment:
-      - DB_ADMIN=${DB_ADMIN}
-      - DB_ADMIN_PW=${DB_ADMIN_PW}
+      - DATABASE_URL=${DATABASE_URL}
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code  
