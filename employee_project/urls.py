@@ -16,9 +16,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response(
+        {
+            'Employees': reverse('employee-list', request=request, format=format),
+            'Departments': reverse('department-list', request=request, format=format),
+            'Attendances': reverse('attendance-list', request=request, format=format),
+            'Performances': reverse('performance-list', request=request, format=format),
+        }
+    )
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', api_root),
     path('', include('employees.urls')),
-    # path('evaluations/', include('evaluations.urls')),
-]
+    path('', include('evaluations.urls')),
+]   
