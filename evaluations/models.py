@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import date
+from django.utils import timezone
 
 from employees.models import Employee
 
@@ -11,7 +11,7 @@ class Attendance(models.Model):
         LATE = 'LATE'
     
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    date = models.DateField("Attendance record date", default=date.today())
+    date = models.DateField("Attendance record date", default=timezone.now)
     status = models.CharField(max_length=7, choices=Status.choices)
     
     def __str__(self):
@@ -28,7 +28,7 @@ class Performance(models.Model):
     
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     rating = models.IntegerField(choices=RATING_CHOICES, default=5) # type: ignore
-    review_date = models.DateField("Performance review date", default=date.today())
+    review_date = models.DateField("Performance review date", default=timezone.now)
     # TODO: Add reviewed by and comment fields
     
     def __str__(self):
