@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 # Create your models here.
 class Department(models.Model):
@@ -18,7 +19,7 @@ class Employee(models.Model):
     state = models.CharField(max_length=2, help_text="2-character US state code (e.g., 'CA', 'NY')")
     # country = models.CharField(max_length=30)   # if international addresses were to be used
     zipcode = models.CharField(max_length=5)    # Only supports standard 5-digit US ZIP codes; does not support ZIP+4 or international codes
-    date_of_joining = models.DateField("Date of joining")
+    date_of_joining = models.DateField("Date of joining", default=date.today())
     department = models.ForeignKey(
         Department, on_delete=models.SET_NULL, null=True, related_name="employees"
     )
