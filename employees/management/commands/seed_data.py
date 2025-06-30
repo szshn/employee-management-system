@@ -61,5 +61,5 @@ class Command(BaseCommand):
                 self.stdout.write(f'Created {i+1} employees...')
         
         self.stdout.write(
-            self.style.SUCCESS(f'Successfully created {count} employees and {len(departments)} departments!')
+            self.style.SUCCESS(f'Successfully created {count} employees and {len(departments)} departments!')    # type: ignore
         )
