@@ -13,6 +13,8 @@ class SingleResultPagination(LimitOffsetPagination):
 class EmployeeList(generics.ListCreateAPIView):
     queryset = Employee.objects.all()   # type: ignore
     serializer_class = EmployeeSerializer
+    filterset_fields = ['department', 'first_name', 'last_name', 'city', 'state']
+    ordering_fields = ['department', 'first_name', 'last_name','state', 'date_of_joining']
     # TODO: Add permission classes
     
     
@@ -26,6 +28,8 @@ class DepartmentList(generics.ListCreateAPIView):
     queryset = Department.objects.all()   # type: ignore
     serializer_class = DepartmentSerializer
     pagination_class = SingleResultPagination
+    filterset_fields = ['name']
+    ordering_fields = ['name']
     # TODO: Add permission classes
     
     
