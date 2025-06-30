@@ -10,7 +10,7 @@ class Attendance(models.Model):
         ABSENT = 'ABSENT'
         LATE = 'LATE'
     
-    employee = models.ForeignKey(Employee, on_delete=models.DO_NOTHING) # might want to keep old employee's records
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     date = models.DateField("Attendance record date", default=date.today())
     status = models.CharField(max_length=7, choices=Status.choices)
     
@@ -26,7 +26,7 @@ class Performance(models.Model):
         (5, '5 -- Above expectation')
     ]
     
-    employee = models.ForeignKey(Employee, on_delete=models.DO_NOTHING)
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     rating = models.IntegerField(choices=RATING_CHOICES, default=5) # type: ignore
     review_date = models.DateField("Performance review date", default=date.today())
     # TODO: Add reviewed by and comment fields
