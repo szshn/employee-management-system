@@ -1,6 +1,7 @@
 import random
 
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
@@ -78,6 +79,7 @@ class Command(BaseCommand):
         self.stdout.write(f'Adding {count} more employees...')
         
         departments = list(Department.objects.all())
+        hashed_password = make_password('password123')
         users_to_create = []
         employees_to_create = []
 
@@ -101,7 +103,7 @@ class Command(BaseCommand):
                 first_name=first_name,
                 last_name=last_name,
                 email=f"{username}@example.com",
-                password='password123',
+                password=hashed_password,
                 date_joined=date_joined,
             )
             employee = Employee(
