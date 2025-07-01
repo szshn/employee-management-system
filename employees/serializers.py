@@ -35,7 +35,7 @@ class DepartmentSerializer(serializers.ModelSerializer):
         return [
             {
                 'id': employee.id,
-                'full_name': employee.get_full_name(),
+                'full_name': employee.user.get_full_name(),
                 'email': employee.user.email
             }
             for employee in obj.employees.all()
