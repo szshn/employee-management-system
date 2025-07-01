@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import environ
 import os
-from pathlib import Path
+from datetime import timedelta
 
 env = environ.Env(
     # set casting, default value
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django_filters',
     'employees',
     'evaluations',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -133,6 +134,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [    # for JWT authentication (remove for session authentication)
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
@@ -142,4 +146,9 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10,
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
 }
