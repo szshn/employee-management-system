@@ -11,6 +11,11 @@ class AttendanceSerializer(serializers.ModelSerializer):
             'status',
         ]
         
+    def validate_employee(self, value):
+        if not value.user.is_active:
+            raise serializers.ValidationError("Cannot create attendance for inactive employee.")
+        return value
+        
         
 class PerformanceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,3 +26,8 @@ class PerformanceSerializer(serializers.ModelSerializer):
             'review_date',
             'rating',
         ]
+        
+    def validate_employee(self, value):
+        if not value.user.is_active:
+            raise serializers.ValidationError("Cannot create performance for inactive employee.")
+        return value
