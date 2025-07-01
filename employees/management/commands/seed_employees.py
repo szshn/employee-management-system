@@ -118,6 +118,9 @@ class Command(BaseCommand):
             users_to_create.append(user)
             employees_to_create.append(employee)
             
+            if employee.department.name == 'HR':
+                employee.user.is_staff = True
+            
             if (i + 1) % 5 == 0:
                 self.stdout.write(f'Created {i+1} additional employees...')
 
