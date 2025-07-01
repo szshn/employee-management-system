@@ -15,6 +15,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
             'id',
             'first_name',
             'last_name',
+            'email',
             'department',
             'phone',
             'is_staff',

@@ -5,6 +5,7 @@ from django_filters import FilterSet
 
 from .models import Employee, Department
 from .serializers import EmployeeSerializer, DepartmentSerializer
+from .permissions import EmployeePermissions, DepartmentPermissions
 
 # Create your views here.
 class SingleResultPagination(LimitOffsetPagination):
@@ -20,6 +21,7 @@ class EmployeeList(generics.ListCreateAPIView):
     serializer_class = EmployeeSerializer
     filterset_class = EmployeeFilter
     ordering_fields = ['department', 'user__first_name', 'user__last_name', 'user__date_joined']
+    permission_classes = [EmployeePermissions]
     
     def get_queryset(self):
         queryset = Employee.objects.all()   # type: ignore
@@ -30,13 +32,11 @@ class EmployeeList(generics.ListCreateAPIView):
         
         return queryset
     
-    # TODO: Add permission classes
-    
     
 class EmployeeDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Employee.objects.all()   # type: ignore
     serializer_class = EmployeeSerializer
-    # TODO: Add permission classes
+    permission_classes = [EmployeePermissions]
     
     
 class DepartmentList(generics.ListCreateAPIView):
@@ -45,6 +45,7 @@ class DepartmentList(generics.ListCreateAPIView):
     pagination_class = SingleResultPagination
     filterset_fields = ['name']
     ordering_fields = ['name']
+    permission_classes = [DepartmentPermissions]
     
     def get_queryset(self):
         queryset = Department.objects.all()   # type: ignore
@@ -55,10 +56,8 @@ class DepartmentList(generics.ListCreateAPIView):
         
         return queryset
     
-    # TODO: Add permission classes
-    
     
 class DepartmentDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Department.objects.all()   # type: ignore    
     serializer_class = DepartmentSerializer
-    # TODO: Add permission classes
+    permission_classes = [DepartmentPermissions]
