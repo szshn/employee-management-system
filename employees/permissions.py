@@ -1,4 +1,5 @@
 from rest_framework import permissions
+from rest_framework.views import PermissionDenied
 from .models import Employee
 
 def is_in_department(request, department_name):
@@ -65,3 +66,18 @@ class EmployeePermissions(permissions.BasePermission):
             return True
         
         return False
+    
+
+def perform_method(request, serializer):
+    user = request.user
+    department = serializer.validated_data['department']
+    
+    if user.is_superuser or is_in_department(request, 'HR'):
+        serializer.save()
+    elif user.is_staff:
+        if department == user.department:
+            serializer.save()
+        else:
+            raise PermissionDenied(f"You can only {str(request.method)} employees for employees in your department.")
+    else:
+        raise PermissionDenied(f"You do not have permission to {str(request.method)} employees.")

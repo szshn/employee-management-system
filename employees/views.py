@@ -5,7 +5,7 @@ from django_filters import FilterSet
 
 from .models import Employee, Department
 from .serializers import EmployeeSerializer, DepartmentSerializer
-from .permissions import EmployeePermissions, DepartmentPermissions
+from .permissions import EmployeePermissions, DepartmentPermissions, perform_method
 
 # Create your views here.
 class SingleResultPagination(LimitOffsetPagination):
@@ -37,6 +37,9 @@ class EmployeeDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Employee.objects.all()   # type: ignore
     serializer_class = EmployeeSerializer
     permission_classes = [EmployeePermissions]
+    
+    def perform_update(self, serializer):
+        return perform_method(self.request, serializer)
     
     
 class DepartmentList(generics.ListCreateAPIView):
