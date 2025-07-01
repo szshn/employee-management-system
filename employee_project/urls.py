@@ -34,6 +34,7 @@ def api_root(request, format=None):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
     path('', api_root),
     path('', include('employees.urls')),
     path('', include('evaluations.urls')),
