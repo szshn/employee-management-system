@@ -4,7 +4,8 @@ services:
     environment:
       - DATABASE_URL=${DATABASE_URL}      
     command: >
-      sh -c "python manage.py setup_db &&
+      sh -c "python manage.py migrate &&
+             python manage.py setup_db &&
              python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code  

@@ -23,7 +23,7 @@ env = environ.Env(
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Take environment variables from .env file
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'), overwrite=True)
 
 # False if not in os.environ because of casting above
 DEBUG = env('DEBUG')
@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'employee_project.wsgi.application'
 DATABASES = {
     "default": {
         **env.db(),
-        "HOST": "db",
+        'HOST': env('DB_HOST', default='localhost'),
     }
 }
 
