@@ -15,8 +15,7 @@ class DepartmentPermissions(permissions.BasePermission):
     """
     Permission class for Department model:
     - Read: Everyone authenticated
-    - Delete: Superuser only
-    - Create/Update: HR department employees or superuser
+    - Create/Update/Delete: HR department employees or superuser
     """
     
     def has_permission(self, request, view):
@@ -35,8 +34,7 @@ class EmployeePermissions(permissions.BasePermission):
     """
     Permission class for Employee model:
     - Read: Everyone
-    - Delete: Superuser only
-    - Create: HR department employees or superuser
+    - Create/Delete: HR department employees or superuser
     - Update: HR department employees, superuser, or staff employees for their own department
     """
     def has_permission(self, request, view):
